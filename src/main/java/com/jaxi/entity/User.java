@@ -17,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false,unique = true,length = 100)
     @NotNull
@@ -43,15 +43,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    private Integer createdUserId;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;
@@ -85,14 +77,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Integer getCreatedUserId() {
-        return createdUserId;
-    }
-
-    public void setCreatedUserId(Integer createdUserId) {
-        this.createdUserId = createdUserId;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -107,5 +91,14 @@ public class User {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
