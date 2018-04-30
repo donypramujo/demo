@@ -7,6 +7,8 @@ import com.jaxi.repository.UserRepository;
 import com.jaxi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import javax.transaction.Transactional;
 
@@ -16,10 +18,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-
-    @Autowired
-    private TeamLeaderRepository teamLeaderRepository;
     @Override
     public void save(User user) {
         userRepository.save(user);
