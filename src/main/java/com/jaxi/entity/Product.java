@@ -12,7 +12,5 @@ public class Product {
 
     private String name;
 
-    private ProductImage productImage;
-
     private Merchant merchant;
 }

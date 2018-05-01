@@ -1,10 +1,10 @@
 package com.jaxi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Entity
 public class MerchantCategory {
 
     @Id
@@ -12,6 +12,8 @@ public class MerchantCategory {
     private Long id;
 
     @Column(nullable = false,unique = true,length = 100)
+    @NotNull
+    @Size(min = 1)
     private String name;
 
     public Long getId() {

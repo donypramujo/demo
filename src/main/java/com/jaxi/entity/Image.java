@@ -4,6 +4,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("product_image")
-public class ProductImage extends  File {
+@DiscriminatorValue("image")
+public class Image extends  File {
 }

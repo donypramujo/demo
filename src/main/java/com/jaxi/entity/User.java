@@ -1,5 +1,6 @@
 package com.jaxi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,6 +28,7 @@ public class User {
     @Column(nullable = false)
     @NotNull
     @Size(min = 6)
+    @JsonIgnore
     private String password;
 
     @Column(length = 100)
@@ -42,6 +44,10 @@ public class User {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
+
+
+    @Column(name = "type", insertable = false, updatable = false)
+    private String type;
 
 
 
@@ -100,5 +106,13 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

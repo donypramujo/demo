@@ -1,6 +1,10 @@
 package com.jaxi.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Merchant {
@@ -10,29 +14,34 @@ public class Merchant {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
 
+    @Column(nullable = false,length = 100)
+    @NotNull
     private String name;
 
+    @Column(nullable = false,length = 20)
+    @NotNull
+    @Pattern(regexp="\\+?([ -]?\\d+)+|\\(\\d+\\)([ -]\\d+)")
     private String phoneNumber;
 
+    @Column(length = 100)
+    @Email
     private String email;
 
-    private String nik;
-
-    @ManyToOne
-    private Company company;
+    @Column(length = 100)
+    private String ktpNumber;
 
     private Double latitude;
 
     private Double longitude;
 
     @ManyToOne
-    private MerchantImage merchantImage;
-
-    @ManyToOne
-    private GameImage gameImage;
+    private Image image;
 
     @ManyToOne
     private MerchantCategory category;
+
+    @Enumerated(EnumType.STRING)
+    private MerchantType type;
 
     public Long getId() {
         return id;
@@ -66,22 +75,6 @@ public class Merchant {
         this.email = email;
     }
 
-    public String getNik() {
-        return nik;
-    }
-
-    public void setNik(String nik) {
-        this.nik = nik;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
     public Double getLatitude() {
         return latitude;
     }
@@ -98,20 +91,12 @@ public class Merchant {
         this.longitude = longitude;
     }
 
-    public MerchantImage getMerchantImage() {
-        return merchantImage;
+    public Image getImage() {
+        return image;
     }
 
-    public void setMerchantImage(MerchantImage merchantImage) {
-        this.merchantImage = merchantImage;
-    }
-
-    public GameImage getGameImage() {
-        return gameImage;
-    }
-
-    public void setGameImage(GameImage gameImage) {
-        this.gameImage = gameImage;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public MerchantCategory getCategory() {
@@ -120,5 +105,21 @@ public class Merchant {
 
     public void setCategory(MerchantCategory category) {
         this.category = category;
+    }
+
+    public String getKtpNumber() {
+        return ktpNumber;
+    }
+
+    public void setKtpNumber(String ktpNumber) {
+        this.ktpNumber = ktpNumber;
+    }
+
+    public MerchantType getType() {
+        return type;
+    }
+
+    public void setType(MerchantType type) {
+        this.type = type;
     }
 }
