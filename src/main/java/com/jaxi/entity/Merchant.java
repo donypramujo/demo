@@ -1,12 +1,16 @@
 package com.jaxi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Merchant {
@@ -37,6 +41,7 @@ public class Merchant {
     private Double longitude;
 
     @ManyToOne
+    @JoinColumn(nullable=false)
     @JsonIgnore
     private Canvasser canvasser;
 
@@ -48,6 +53,9 @@ public class Merchant {
 
     @Enumerated(EnumType.STRING)
     private MerchantType type;
+
+    @OneToMany(mappedBy = "merchant")
+    private Set<Product> products = new HashSet<Product>();
 
     public Long getId() {
         return id;
@@ -135,5 +143,13 @@ public class Merchant {
 
     public void setCanvasser(Canvasser canvasser) {
         this.canvasser = canvasser;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

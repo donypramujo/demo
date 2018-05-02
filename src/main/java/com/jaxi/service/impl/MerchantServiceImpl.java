@@ -6,12 +6,16 @@ import com.jaxi.entity.MerchantCategory;
 import com.jaxi.entity.Product;
 import com.jaxi.repository.MerchantCategoryRepository;
 import com.jaxi.repository.MerchantRepository;
+import com.jaxi.repository.ProductRepository;
 import com.jaxi.service.MerchantService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -22,6 +26,10 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Autowired
     private MerchantCategoryRepository merchantCategoryRepository;
+
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public Merchant create(Merchant merchant) {
@@ -37,7 +45,21 @@ public class MerchantServiceImpl implements MerchantService {
 			}
         }
 
-        return merchantRepository.save(merchant);
+        Set<Product> _products = merchant.getProducts();
+
+        merchant.setProducts(new HashSet<Product>());
+        Merchant _newMerchant = merchantRepository.save(merchant);
+
+
+        if(_products !=null ){
+            for (Product _product: _products) {
+                _product.setMerchant(_newMerchant);
+                merchant.getProducts().add(productRepository.save(_product));
+            }
+        }
+
+        Hibernate.initialize(_newMerchant.getProducts());
+        return _newMerchant;
 
     }
     @Override

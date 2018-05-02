@@ -1,9 +1,12 @@
 package com.jaxi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+@Entity
 public class Product {
 
     @Id
@@ -19,6 +22,9 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
+    @JoinColumn(nullable=false)
+//    @NotNull
+    @JsonIgnore
     private Merchant merchant;
 
 
