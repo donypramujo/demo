@@ -3,6 +3,7 @@ package com.jaxi.service.impl;
 import com.jaxi.entity.Image;
 import com.jaxi.entity.Merchant;
 import com.jaxi.entity.MerchantCategory;
+import com.jaxi.entity.Product;
 import com.jaxi.repository.MerchantCategoryRepository;
 import com.jaxi.repository.MerchantRepository;
 import com.jaxi.service.MerchantService;
@@ -28,17 +29,19 @@ public class MerchantServiceImpl implements MerchantService {
         MerchantCategory _category = merchant.getCategory();
 
         if(_category !=null ){
-            MerchantCategory _category2= merchantCategoryRepository.findByName(_category.getName());
-            if(_category2 == null){
+            MerchantCategory _oldCategory= merchantCategoryRepository.findByName(_category.getName());
+            if(_oldCategory == null){
                 merchantCategoryRepository.save(_category);
-            }
+            }else{
+				merchant.setCategory(_oldCategory);
+			}
         }
 
         return merchantRepository.save(merchant);
 
     }
     @Override
-    public Merchant linkImage(Image image , Long merchantId){
+    public Merchant addImage(Image image , Long merchantId){
 
        Merchant merchant = merchantRepository.findById(merchantId).get();
 
@@ -48,5 +51,15 @@ public class MerchantServiceImpl implements MerchantService {
        }
 
        return null;
+    }
+
+    @Override
+    public Product addProduct(Product product, Long merchantId) {
+        return null;
+    }
+
+    @Override
+    public Product addProductImage(Image image, Long productId) {
+        return null;
     }
 }

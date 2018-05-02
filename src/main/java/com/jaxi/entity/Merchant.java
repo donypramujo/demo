@@ -1,5 +1,7 @@
 package com.jaxi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
@@ -33,6 +35,10 @@ public class Merchant {
     private Double latitude;
 
     private Double longitude;
+
+    @ManyToOne
+    @JsonIgnore
+    private Canvasser canvasser;
 
     @ManyToOne
     private Image image;
@@ -121,5 +127,13 @@ public class Merchant {
 
     public void setType(MerchantType type) {
         this.type = type;
+    }
+
+    public Canvasser getCanvasser() {
+        return canvasser;
+    }
+
+    public void setCanvasser(Canvasser canvasser) {
+        this.canvasser = canvasser;
     }
 }

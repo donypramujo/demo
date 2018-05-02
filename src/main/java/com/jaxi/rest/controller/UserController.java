@@ -21,13 +21,13 @@ public class UserController {
     private UserRepository userRepository;
 
 
-    @GetMapping("user/findAll")
+    //@GetMapping("user/findAll")
     public List<User> findAll(){
        return userRepository.findAll();
     }
 
 
-    @PostMapping("user/create")
+    //@PostMapping("user/create")
     public  ResponseEntity create(@Valid @RequestBody User user){
 
         final User _user = userRepository.findByEmail(user.getEmail());
