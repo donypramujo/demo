@@ -1,6 +1,10 @@
 package com.jaxi.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 
@@ -26,6 +30,10 @@ public class File {
     private Long size;
 
     private Byte[] bytes;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
     public Long getId() {
         return id;
@@ -73,5 +81,13 @@ public class File {
 
     public void setBytes(Byte[] bytes) {
         this.bytes = bytes;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }
