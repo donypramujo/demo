@@ -10,7 +10,5 @@ public interface MerchantService {
 
     Merchant addImage(Image image , Long merchantId);
 
-    Product addProduct(Product product, Long merchantId);
-
     Product addProductImage(Image image, Long productId);
 }

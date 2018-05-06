@@ -16,7 +16,7 @@ public class TeamLeaderController {
     @Autowired
     private TeamLeaderRepository teamLeaderRepository;
 
-    @GetMapping("teamleader/all")
+    //@GetMapping("teamleader/all")
     public ResponseEntity<List<TeamLeader>> all(){
         return ResponseEntity.ok().body(teamLeaderRepository.findAll());
     }

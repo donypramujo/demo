@@ -52,6 +52,7 @@ public class Merchant {
     private Image image;
 
     @ManyToOne
+    @NotNull
     private MerchantCategory category;
 
     @Enumerated(EnumType.STRING)
