@@ -4,10 +4,9 @@ import com.jaxi.entity.Image;
 import com.jaxi.entity.Merchant;
 import com.jaxi.entity.MerchantCategory;
 import com.jaxi.entity.Product;
+import com.jaxi.exception.MerchantAlreadyExistException;
 import com.jaxi.exception.MerchantCategoryNotFoundException;
-import com.jaxi.repository.MerchantCategoryRepository;
-import com.jaxi.repository.MerchantRepository;
-import com.jaxi.repository.ProductRepository;
+import com.jaxi.repository.*;
 import com.jaxi.rest.controller.MerchantController;
 import com.jaxi.service.MerchantService;
 import org.hibernate.Hibernate;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -38,8 +36,17 @@ public class MerchantServiceImpl implements MerchantService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     @Override
     public Merchant create(Merchant merchant) {
+
+        Optional<Merchant> _oldMerchant =  merchantRepository.findById(merchant.getId());
+
+        if(_oldMerchant.isPresent()){
+            throw  new MerchantAlreadyExistException("merchant already exists");
+        }
 
         MerchantCategory _category = merchant.getCategory();
 
@@ -63,7 +70,7 @@ public class MerchantServiceImpl implements MerchantService {
         if(_products !=null ){
             for (Product _product: _products) {
                 _product.setMerchant(_newMerchant);
-                merchant.getProducts().add(productRepository.save(_product));
+                _newMerchant.getProducts().add(productRepository.save(_product));
             }
         }
 
@@ -72,21 +79,16 @@ public class MerchantServiceImpl implements MerchantService {
         return _newMerchant;
 
     }
+
     @Override
-    public Merchant addImage(Image image , Long merchantId){
-
-       Merchant merchant = merchantRepository.findById(merchantId).get();
-
-       if(merchant != null && image != null){
-           merchant.setImage(image);
-           return merchantRepository.save(merchant);
+    public Image addImage(Image image , String merchantId){
+       Optional<Merchant> merchant = merchantRepository.findById(merchantId);
+       if(merchant.isPresent()){
+           merchant.get().setImage(imageRepository.save(image));
+           merchantRepository.save(merchant.get());
        }
-
-       return null;
+       return merchant.get().getImage();
     }
 
-    @Override
-    public Product addProductImage(Image image, Long productId) {
-        return null;
-    }
+
 }

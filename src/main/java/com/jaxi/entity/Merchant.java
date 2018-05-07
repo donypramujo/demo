@@ -20,8 +20,8 @@ public class Merchant {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
+    @NotNull
+    private String id;
 
     @Column(nullable = false,length = 100)
     @NotNull
@@ -69,11 +69,11 @@ public class Merchant {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

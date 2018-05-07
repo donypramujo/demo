@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h1>Test Upload Product Image</h1>
+
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/product/addImage">
+        <table>
+            <tr><td>File to upload:</td><td><input type="file" name="image" /></td></tr>
+            <tr><td>Product ID:</td><td><input type="text" name="productId" /></td></tr>
+            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

@@ -37,6 +37,8 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
+    @ManyToOne
+    private Image image;
 
     public Long getId() {
         return id;
@@ -84,5 +86,13 @@ public class Product {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

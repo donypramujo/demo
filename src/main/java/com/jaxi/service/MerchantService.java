@@ -8,7 +8,6 @@ public interface MerchantService {
 
     Merchant create(Merchant merchant);
 
-    Merchant addImage(Image image , Long merchantId);
+    Image addImage(Image image , String merchantId);
 
-    Product addProductImage(Image image, Long productId);
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-public interface MerchantRepository extends JpaRepository <Merchant,Long> {
+public interface MerchantRepository extends JpaRepository <Merchant,String> {
     Page<Merchant> findAllByCanvasser(Canvasser canvasser, Pageable pageable);
 
     long countByCanvasserAndCreatedDateBetween(Canvasser canvasser,Date from, Date to);

@@ -1,6 +1,8 @@
 package com.jaxi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -29,7 +31,10 @@ public class File {
     @Column(nullable = false)
     private Long size;
 
-    private Byte[] bytes;
+    @Lob
+    @Type(type="org.hibernate.type.BinaryType")
+    @JsonIgnore
+    private byte[] bytes;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,11 +80,11 @@ public class File {
         this.size = size;
     }
 
-    public Byte[] getBytes() {
+    public byte[] getBytes() {
         return bytes;
     }
 
-    public void setBytes(Byte[] bytes) {
+    public void setBytes(byte[] bytes) {
         this.bytes = bytes;
     }
 
