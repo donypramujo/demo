@@ -2,7 +2,6 @@ package com.jaxi.service.impl;
 
 import com.jaxi.entity.MerchantCategory;
 import com.jaxi.repository.MerchantCategoryRepository;
-import com.jaxi.repository.MerchantRepository;
 import com.jaxi.service.MerchantCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

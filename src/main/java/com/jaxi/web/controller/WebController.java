@@ -8,7 +8,6 @@ public class WebController {
 
     @RequestMapping("/test/merchant-upload")
     public void merchantUpload(){
-
     }
 
     @RequestMapping("/test/product-upload")

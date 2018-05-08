@@ -82,16 +82,9 @@ public class MerchantController {
         DateTime _fromMonth = new DateTime(date).withDayOfMonth(1).withTime(0,0,0,0);
         DateTime _toMonth = new DateTime(date).withTime(23,59,59,999).dayOfMonth().withMaximumValue();
 
-//        logger.debug("from day " + _fromDay);
-//        logger.debug("to day " + _toDay);
-//        logger.debug("from month " + _fromMonth);
-//        logger.debug("to month " + _toMonth);
-
-
         long resultDaily = merchantRepository.countByCanvasserAndCreatedDateBetween(_canvasser
                 ,_fromDay.toDate()
                 , _toDay.toDate());
-
 
         long resultMontly = merchantRepository.countByCanvasserAndCreatedDateBetween(_canvasser
                 ,_fromMonth.toDate()
@@ -99,9 +92,7 @@ public class MerchantController {
 
 
         result.put("result_daily",resultDaily);
-
         result.put("result_monthly",resultMontly);
-
         return result;
     }
 

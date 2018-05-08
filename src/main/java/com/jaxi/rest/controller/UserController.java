@@ -3,17 +3,14 @@ package com.jaxi.rest.controller;
 import com.jaxi.entity.User;
 import com.jaxi.exception.UserAlreadyExistException;
 import com.jaxi.repository.UserRepository;
-import com.jaxi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.validation.Valid;
 import java.util.List;
 
