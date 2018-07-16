@@ -11,13 +11,13 @@ public class TeamLeader extends User {
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private AreaSalesManager areaSalesManager;
+    private Coordinator coordinator;
 
-    public AreaSalesManager getAreaSalesManager() {
-        return areaSalesManager;
+    public Coordinator getCoordinator() {
+        return coordinator;
     }
 
-    public void setAreaSalesManager(AreaSalesManager areaSalesManager) {
-        this.areaSalesManager = areaSalesManager;
+    public void setCoordinator(Coordinator coordinator) {
+        this.coordinator = coordinator;
     }
 }

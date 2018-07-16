@@ -26,6 +26,6 @@ public class MerchantCategoryServiceImpl implements MerchantCategoryService {
     @Cacheable
     public List<MerchantCategory> findAll() {
         logger.info("load merchant categories");
-        return merchantCategoryRepository.findAll();
+        return merchantCategoryRepository.findAllByOrderBySortNumberAscIdAsc();
     }
 }

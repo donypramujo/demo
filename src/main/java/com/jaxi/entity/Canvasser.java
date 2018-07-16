@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@DiscriminatorValue("c")
+@DiscriminatorValue("cv")
 public class Canvasser extends User {
 
     @ManyToOne
@@ -20,4 +20,6 @@ public class Canvasser extends User {
     public void setTeamLeader(TeamLeader teamLeader) {
         this.teamLeader = teamLeader;
     }
+
+
 }

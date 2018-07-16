@@ -26,7 +26,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Cacheable(key = "#key")
     public String get(String key) {
         logger.info(key);
-        return ((Config)configRepository.findById(key).get()).getValue();
+        return configRepository.findById(key).get().getValue();
     }
 
     @Override

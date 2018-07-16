@@ -31,7 +31,7 @@ public class JaxiUserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getBoostId();
     }
 
     @Override

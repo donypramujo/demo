@@ -20,7 +20,7 @@ public class ImageController {
     private ImageRepository imageRepository;
 
     @GetMapping("/image/{imageId}")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public ResponseEntity<Resource> image(@PathVariable("imageId") Long imageId) {
         Optional<Image> _image = imageRepository.findById(imageId);
         if(!_image.isPresent()){

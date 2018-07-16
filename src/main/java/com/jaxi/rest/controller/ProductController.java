@@ -23,7 +23,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/product/addImage")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public ResponseEntity addImage(@RequestParam("image") MultipartFile file,@RequestParam("productId") Long productId)throws IOException {
         logger.info("uploading file ");
 

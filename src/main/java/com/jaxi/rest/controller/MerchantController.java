@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +51,7 @@ public class MerchantController {
     private ConfigService configService;
 
     @GetMapping("/merchant/all")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public Page<Merchant> merchants(Pageable page, Authentication authentication){
         JaxiUserPrincipal _principal = (JaxiUserPrincipal) authentication.getPrincipal();
         Canvasser _canvasser  = (Canvasser) _principal.getUser();
@@ -58,16 +59,19 @@ public class MerchantController {
     }
 
     @GetMapping("/merchant/result/{date}")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public HashMap<String, Object> results(@PathVariable("date") @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date, Authentication authentication){
 
         logger.info(date.toString());
 
         HashMap<String,Object> result = new HashMap<>();
         Long expectedDaily = NumberUtils.parseNumber(configService.get("expected_daily"),Long.class);
+
+        Long expectedWeekly = NumberUtils.parseNumber(configService.get("expected_weekly"),Long.class);
         Long expectedMonthly = NumberUtils.parseNumber(configService.get("expected_montly"),Long.class);
 
         result.put("expected_daily",expectedDaily);
+        result.put("expected_weekly",expectedWeekly);
         result.put("expected_monthly",expectedMonthly);
 
         JaxiUserPrincipal _principal = (JaxiUserPrincipal) authentication.getPrincipal();
@@ -82,6 +86,10 @@ public class MerchantController {
         DateTime _fromMonth = new DateTime(date).withDayOfMonth(1).withTime(0,0,0,0);
         DateTime _toMonth = new DateTime(date).withTime(23,59,59,999).dayOfMonth().withMaximumValue();
 
+
+        DateTime _fromWeek = new DateTime(date).withDayOfWeek(1).withTime(0,0,0,0);
+        DateTime _toWeek = new DateTime(date).withTime(23,59,59,999).dayOfMonth().withMaximumValue();
+
         long resultDaily = merchantRepository.countByCanvasserAndCreatedDateBetween(_canvasser
                 ,_fromDay.toDate()
                 , _toDay.toDate());
@@ -90,22 +98,27 @@ public class MerchantController {
                 ,_fromMonth.toDate()
                 ,_toMonth.toDate());
 
+        long resultWeekly = merchantRepository.countByCanvasserAndCreatedDateBetween(_canvasser
+                ,_fromWeek.toDate()
+                ,_toWeek.toDate());
+
 
         result.put("result_daily",resultDaily);
+        result.put("result_weekly",resultWeekly);
         result.put("result_monthly",resultMontly);
         return result;
     }
 
 
     @GetMapping("/merchant/category/all")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public List<MerchantCategory> categories(){
         return merchantCategoryService.findAll();
     }
 
 
     @PostMapping("/merchant/create")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public ResponseEntity create(@Valid @RequestBody Merchant merchant, Authentication authentication){
 
         JaxiUserPrincipal _principal = (JaxiUserPrincipal) authentication.getPrincipal();
@@ -118,7 +131,7 @@ public class MerchantController {
 
 
     @PostMapping("/merchant/addImage")
-    @PreAuthorize("hasAuthority('c')")
+    @PreAuthorize("hasAuthority('cv')")
     public ResponseEntity addImage(@RequestParam("image") MultipartFile file,@RequestParam("merchantId") String merchantId)throws IOException {
         logger.info("uploading file ");
 
@@ -130,5 +143,14 @@ public class MerchantController {
         _image.setOriginalFileName(file.getOriginalFilename());
 
         return ResponseEntity.ok().body( merchantService.addImage(_image,merchantId));
+    }
+
+
+    public static void main(String[] args)throws  Exception{
+
+        DateTime _fromWeek = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse("16/07/2018")).withDayOfWeek(1).withTime(0,0,0,0);
+        DateTime _toWeek = new DateTime(new SimpleDateFormat("dd/MM/yyyy").parse("16/07/2018")).withTime(23,59,59,999).dayOfWeek().withMaximumValue();
+        System.out.println(_fromWeek);
+        System.out.println(_toWeek);
     }
 }
