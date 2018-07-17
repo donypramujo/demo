@@ -68,7 +68,7 @@ public class MerchantController {
         Long expectedDaily = NumberUtils.parseNumber(configService.get("expected_daily"),Long.class);
 
         Long expectedWeekly = NumberUtils.parseNumber(configService.get("expected_weekly"),Long.class);
-        Long expectedMonthly = NumberUtils.parseNumber(configService.get("expected_montly"),Long.class);
+        Long expectedMonthly = NumberUtils.parseNumber(configService.get("expected_monthly"),Long.class);
 
         result.put("expected_daily",expectedDaily);
         result.put("expected_weekly",expectedWeekly);
