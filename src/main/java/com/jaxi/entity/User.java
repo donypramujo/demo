@@ -39,10 +39,10 @@ public class User {
     @Column(length = 100)
     private String lastName;
 
-    @Column(length = 100)
+    @Column(unique = true,length = 100)
     private String phoneNumber;
 
-    @Column(length = 100)
+    @Column(unique = true,length = 100)
     private String idNumber;
 
     @Column(length = 100)
