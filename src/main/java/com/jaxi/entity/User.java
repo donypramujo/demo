@@ -1,6 +1,8 @@
 package com.jaxi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,7 +29,7 @@ public class User {
     @Column(nullable = false)
     @NotNull
     @Size(min = 6)
-    @JsonIgnore
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(length = 100)
@@ -165,5 +167,24 @@ public class User {
 
     public void setBoostId(String boostId) {
         this.boostId = boostId;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", familyNumber='" + familyNumber + '\'' +
+                ", boostId='" + boostId + '\'' +
+                ", createdDate=" + createdDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

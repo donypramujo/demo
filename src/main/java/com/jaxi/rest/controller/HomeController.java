@@ -20,12 +20,5 @@ public class HomeController {
         return _map;
     }
 
-    @RequestMapping("/profile")
-    public User profile(Authentication authentication){
 
-        JaxiUserPrincipal _principal = (JaxiUserPrincipal) authentication.getPrincipal();
-        User user  = _principal.getUser();
-
-        return user;
-    }
 }
