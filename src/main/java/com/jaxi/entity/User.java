@@ -45,9 +45,11 @@ public class User {
     private String phoneNumber;
 
     @Column(unique = true,length = 100)
+    @JsonIgnore
     private String idNumber;
 
     @Column(length = 100)
+    @JsonIgnore
     private String familyNumber;
 
     @Column(unique = true,length = 10)
